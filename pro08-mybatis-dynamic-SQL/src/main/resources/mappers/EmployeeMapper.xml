@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 在Java程序中，必须找到当前的Mapper配置文件，才能进一步找到这里配置的SQL语句 -->
+<!-- Java程序就是通过mapper标签的namespace属性找到当前Mapper配置文件 -->
+<!-- 将来为了让一个Java接口，直接对应这个Mapp|er配置文件，通常使用Java接口的全类名作为这个namespace属性的值 -->
+<!-- 以前我们叫dao，现在叫mapper，本质上都是持久化层的类型，只是命名习惯的区别 -->
+<mapper namespace="jingjing.mybatis.dao.EmployeeMapper">
+
+    <sql id="selectPart">
+        select emp_id,emp_name,emp_salary from t_emp
+    </sql>
+
+
+    <select id="selectEmpByCondition" resultType="jingjing.mybatis.entity.Emp">
+        <!-- select emp_id,emp_name,emp_salary from t_emp  -->
+        <!-- 使用上面sql标签  -->
+        <include refid="selectPart"/>
+        <!-- 使用where 标签动态生成SQL语句中的where子句 -->
+        <where>
+            <if test="empName != null">
+                or emp_name = #{empName}
+            </if>
+
+            <if test="empSalary &gt; 2000">
+                or emp_salary > #{empSalary}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateEmpCondition">
+        update t_emp
+            <!-- 整合标签内的动态的条件，去除多余的逗号 -->
+        <set>
+            <if test="empName != null">
+                emp_name=#{empName},
+            </if>
+            <if test="empSalary &gt; 2000">
+                emp_salary=#{empSalary},
+            </if>
+        </set>
+        where emp_id=5
+
+    </update>
+
+    <select id="selectEmpByConditionByTrim" resultType="jingjing.mybatis.entity.Emp">
+        <include refid="selectPart"/>
+        <!-- trim 标签内部如果有条件，则where会出现，否则where不出现  -->
+            <!-- 整个条件部分，如果在后面有多出来的and或or会自动被去掉   -->
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="empName != null">
+                 emp_name = #{empName} or
+            </if>
+
+            <if test="empSalary &gt; 2000">
+                 emp_salary > #{empSalary}
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="selectEmpByChooseCondition" resultType="jingjing.mybatis.entity.Emp">
+        <include refid="selectPart"/>
+        where
+        <choose>
+              <!-- 每一个when标签设定一个具体的分支条件 -->
+            <when test="empName!=null">
+                emp_name=#{empName}
+            </when>
+            <when test="empSalary &gt; 2000">
+                emp_salary>#{empSalary}
+            </when>
+            <!-- 如果都不满足的话执行otherwise分支-->
+            <otherwise>1=1</otherwise>
+        </choose>
+
+    </select>
+
+
+    <insert id="batchInsert">
+        insert into t_emp(emp_name,emp_salary)
+
+        <!-- collection 属性，指定要遍历的集合  -->
+        <!-- item 属性，给遍历出来的每一个对象取名字，便于引用  -->
+        <!-- separator 属性，每个循环体生成的字符串之间的分隔符 -->
+        <!-- open 属性，foreach标签生成的字符串整体，加到前面的字符串 -->
+        <!-- close 属性，foreach标签生成的字符串整体，加到后面的字符串 -->
+
+        <foreach collection="empList" item="emp" separator="," open="values" index="">
+            (#{emp.empName},#{emp.empSalary})
+        </foreach>
+    </insert>
+
+    <update id="batchUpdate">
+        <foreach collection="empList" item="emp" separator=";">
+            update t_emp set emp_name=#{emp.empName},emp_salary=#{emp.empSalary}
+            where emp_id=#{emp.empId}
+        </foreach>
+    </update>
+
+    <update id="commonUpdate">
+        update t_emp set emp_name=#{empName},emp_salary=#{empSalary}
+        where emp_id=#{empId}
+    </update>
+<!--  ?characterEncoding=utf8   -->
+
+</mapper>

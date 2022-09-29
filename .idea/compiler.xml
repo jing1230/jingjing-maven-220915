@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pro02-maven-module" />
+        <module name="pro05-mybatis-relationship" />
+        <module name="pro06-mybatis-lazyLoading" />
+        <module name="pro04-mybatis-base-operation" />
+        <module name="pro10-mybatis-ehcache" />
+        <module name="pro08-mybatis-dynamic-SQL" />
+        <module name="pro11-mybatis-MBG" />
+        <module name="pro01-maven-module" />
+        <module name="pro03-maven-web" />
+        <module name="pro09-mybatis-cache" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pr005-mybatis-relationship" target="8" />
+      <module name="pro041-mybatis-base-operation" target="8" />
+      <module name="pro05-mybatis-relationship (1)" target="8" />
+      <module name="pro06-mybatis-lazyloading" target="8" />
+      <module name="pro066-mybatis-lazyloading" target="8" />
+      <module name="pro07-mybatis-dynamic-SQL" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,11 @@
+# Project exclude paths
+/pro01-maven-module/target/
+/pro02-maven-module/target/
+/pro03-maven-web/target/
+/pro04-mybatis-base-operation/target/
+/pro05-mybatis-relationship/target/
+/pro06-mybatis-lazyLoading/target/
+/pro08-mybatis-dynamic-SQL/target/
+/pro09-mybatis-cache/target/
+/pro10-mybatis-ehcache/target/
+/target/
