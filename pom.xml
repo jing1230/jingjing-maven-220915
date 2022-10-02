@@ -20,6 +20,7 @@
         <module>pro09-mybatis-cache</module>
         <module>pro10-mybatis-ehcache</module>
         <module>pro11-mybatis-MBG</module>
+        <module>pro12-mybatis-QBC</module>
     </modules>
     <dependencies>
         <dependency>

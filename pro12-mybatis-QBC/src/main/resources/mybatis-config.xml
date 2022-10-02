@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 引入外部属性文件-->
+    <properties resource="jdbc.properties"/>
+
+    <!-- 驼峰式命名 -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+
+
+    <environments default="development">
+
+        <!-- 一个具体的环境，就是一个可以使用的数据库连接信息 -->
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+
+                <!-- 使用${} 格式从外部属性文件中引用数据-->
+                <property name="driver" value="${wechat.dev.driver}"/>
+                <!--知道是编码的问题，而且是服务器端编码与数据库编码不匹配的问题，
+                所以先查看数据库的字符集查看数据库字符集
+                localhost:3306/mybatis-example 后加上 ?characterEncoding=utf8-->
+                <property name="url" value="${wechat.dev.url}"/>
+                <property name="username" value="${wechat.dev.username}"/>
+                <property name="password" value="${wechat.dev.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <!-- 注册Mapper配置文件-->
+    <mappers>
+        <!-- 使用mapper标签指定一个具体的Mapper配置文件-->
+        <!--<mapper resource="mappers/EmployeeMapper.xml"/>-->
+
+        <!-- 通过package标签指定Mapper资源所在的报，加载、注册全部的Mapper配置文件-->
+        <!-- 由于Maven工程的特殊性，Mapper配置文件需要放在resources目录下，目录结构和报名字相同-->
+        <package name="jingjing.mybatis.mapper"/>
+    </mappers>
+</configuration>
+
+
+

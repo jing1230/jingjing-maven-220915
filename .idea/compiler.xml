@@ -13,6 +13,7 @@
         <module name="pro10-mybatis-ehcache" />
         <module name="pro08-mybatis-dynamic-SQL" />
         <module name="pro11-mybatis-MBG" />
+        <module name="pro12-mybatis-QBC" />
         <module name="pro01-maven-module" />
         <module name="pro03-maven-web" />
         <module name="pro09-mybatis-cache" />
